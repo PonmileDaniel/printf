@@ -14,7 +14,8 @@ typedef struct
 
 int _printf(const char *format, ...);
 int _putchar(char c);
-void custom_print_formatted(const char *format, ...);
+int custom_printf_string(va_list args);
+int custom_print_formatted(const char *format, ...);
 
 
 

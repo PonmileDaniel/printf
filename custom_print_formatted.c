@@ -4,99 +4,51 @@
 
 /**
  * custom_print_formatted - A simplified printf function
- * @format:The formated string containing format specifiers
+ * @format: The formated string containing format specifiers
  * @...: variable number of arguemnt to be formatted
- * Return : Void
+ * Return: Void
  */
 
 int custom_print_formatted(const char *format, ...)
 {
+	if (format == NULL)
+		return (-1);
 	va_list args;
 
 	va_start(args, format);
+	int length = 0;
 
-	int printed_chars = 0;
-
-	while (*format)
+	while (*format != '\0')
 	{
-		if (*format == "%")
+		if (*format != '%')
 		{
-			format++;
-
-			if (*format == "c")
-			{
-				_putchar(va_arg(args, int));
-				printed_chars++;
-			}
-			else if (*format == "s")
-			{
-				char *str = va_args(args, char*);
-				while (*str)
-				{
-					_putchar(*str);
-					printed_chars++;
-					str++;
-				}
-			}
-			else if  (*format == "d")
-			{
-				print_int(va_arg(args, int));
-			}
-			else
-			{
-				_putchar("%");
-				_putchar(*format);
-				printed_chars += 2;
-			}
+			_putchar(*format);
+			length++;
 		}
 		else
 		{
-			_putchar(*format);
-			printed_chars++;
+			format++;
+			int printed = 0;
+			size_t i;
+
+			for (i = 0; i < NUM_CONVERTERS; i++)
+			{
+				if (*format == m[i].id)
+				{
+					printed = m[i].f(args);
+					length += printed;
+					break;
+				}
+			}
+			if (printed == 0)
+			{
+				_putchar("%");
+				_putchar(*format);
+				length += 2;
+			}
 		}
 		format++;
 	}
 	va_end(args);
-}
-
-/**
- * print_int - Custom function to print an integer
- * @num: The integer to be Printed.
- *
- */
-void print_int(int num)
-{
-	if (num == 0)
-	{
-		_putchar ('0');
-		return;
-	}
-
-	int is_negative = 0;
-
-	if (num < 0)
-	{
-		is_negative = 1;
-		num = -num;
-	}
-
-	char num_str[20];
-
-	int index = 0;
-
-	while (num > 0)
-	{
-		num_str[index++] = '0' + (num % 10);
-		num /= 10;
-	}
-
-	if (is_negative)
-	{
-		_putchar ("-");
-	}
-
-	for (int i = index - 1; i >= 0; i--)
-	{
-		_putchar (num_str[i]);
-	}
+	return (length);
 }
