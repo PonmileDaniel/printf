@@ -1,7 +1,7 @@
 #include "main.h"
 #include <stdio.h>
 #include <stdarg.h>
-
+#include <stdbool.h>
 /**
  * custom_print_formatted - A simplified printf function
  * @format: The formated string containing format specifiers
@@ -11,12 +11,14 @@
 
 int custom_print_formatted(const char *format, ...)
 {
+	int length = 0;
+	int printed = 0;
+	size_t i;
+	va_list args;
+        va_start(args, format);
+
 	if (format == NULL)
 		return (-1);
-	va_list args;
-
-	va_start(args, format);
-	int length = 0;
 
 	while (*format != '\0')
 	{
@@ -28,12 +30,10 @@ int custom_print_formatted(const char *format, ...)
 		else
 		{
 			format++;
-			int printed = 0;
-			size_t i;
 
 			for (i = 0; i < NUM_CONVERTERS; i++)
 			{
-				if (*format == m[i].id)
+				if (*format == m[i].specifier)
 				{
 					printed = m[i].f(args);
 					length += printed;
@@ -42,7 +42,7 @@ int custom_print_formatted(const char *format, ...)
 			}
 			if (printed == 0)
 			{
-				_putchar("%");
+				_putchar('%');
 				_putchar(*format);
 				length += 2;
 			}

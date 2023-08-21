@@ -9,9 +9,13 @@
 typedef struct
 {
 	char specifier;
-	void (*print_function)(va_list);
-} FormatSpecifier;
+	int (*f)(va_list);
+} Converter;
 
+extern Converter m[];
+extern size_t NUM_CONVERTERS;
+
+int custom_putchar(char c);
 int _printf(const char *format, ...);
 int _putchar(char c);
 int custom_printf_string(va_list args);
