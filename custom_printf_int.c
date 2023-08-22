@@ -1,20 +1,62 @@
 #include "main.h"
-#include <stdbool.h>
 #include <stdio.h>
+#include <stdarg.h>
 
 /**
- * print_positive - Print a positive int 
- * @n: The positive int to print.
- * Return: THe number of char printed
+ * _printf - A simplified printf function
+ * @format: The formated string containing format specifiers
+ * @...: variable number of arguemnt to be formatted
+ * Return: Void
  */
-int custom_print_positive(int n)
+
+
+int _printf(const char *format, ...)
 {
-	int digits;
+int count = 0;
+const char *s, c;
+va_list args;
 
-	if (n == 0)
-		return (0);
+va_start(args, format);
+while (*format)
+{
+	if (*format == '%')
+	{
+		format++;
+		switch (*format)
+		{
+			case 'c':
+			c = (char) va_arg(args, int);
+			_putchar(c);
+			count++;
+			break;
+			case 's':
+			s = va_arg(args, const char *);
+			while (*s)
+			{
+				_putchar(*s);
+				s++;
+				count++;
+			}
+			break;
+			case '%':
+			_putchar('%');
+			count++;
+			break;
+			default:
+			_putchar('%');
+			_putchar(*format);
+			count += 2;
+			break;
+		}
+		}
+		else
+		{
+			_putchar(*format);
+			count++;
+		}
+		format++;
+	}
 
-	digits = custom_print_positive(n / 10);
-	_putchar(n % 10 + '0');
-	return (digits + 1);
+	va_end(args);
+	return (count);
 }
