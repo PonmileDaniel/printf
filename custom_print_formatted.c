@@ -1,7 +1,7 @@
 #include "main.h"
 #include <stdio.h>
 #include <stdarg.h>
-#include <stdbool.h>
+
 /**
  * custom_print_formatted - A simplified printf function
  * @format: The formated string containing format specifiers
@@ -9,46 +9,55 @@
  * Return: Void
  */
 
-int custom_print_formatted(const char *format, ...)
-{
-	int length = 0;
-	int printed = 0;
-	size_t i;
-	va_list args;
-        va_start(args, format);
 
-	if (format == NULL)
+
+int _printf(const char *format, ...)
+{
+	int count = 0;
+	char c;
+	char *ptr = NULL;
+	char *str = NULL;
+
+	va_list args;
+
+	if (!format)
 		return (-1);
 
-	while (*format != '\0')
-	{
-		if (*format != '%')
-		{
-			_putchar(*format);
-			length++;
-		}
-		else
-		{
-			format++;
-
-			for (i = 0; i < NUM_CONVERTERS; i++)
-			{
-				if (*format == m[i].specifier)
-				{
-					printed = m[i].f(args);
-					length += printed;
-					break;
-				}
-			}
-			if (printed == 0)
-			{
-				_putchar('%');
-				_putchar(*format);
-				length += 2;
-			}
-		}
-		format++;
-	}
-	va_end(args);
-	return (length);
+	va_start(args, format);
+	ptr = format;
+	 
+	 while (*ptr != '\0')
+	 {
+		 if (*ptr == '%')
+			 *ptr++;
+		 if (*ptr == 'c')
+		 {
+			 c = (char)va_arg(args, int);
+			 _putchar(c);
+			 count++;
+		 }
+		 else if (*ptr == 's')
+		 {
+			 str = va_arg(args, char*);
+			 while (*str !='\0')
+			 {
+				 _putchar(*str);
+				 str++;
+				 count++;
+			 }
+		 }
+		 else if (*ptr == '%')
+		 {
+			 _putchar('%');
+			 count++;
+		 }
+		 else
+		 {
+			 _putchar(*ptr);
+			 count++;
+		 }
+		 ptr++;
+	 }
+	 va_end(args);
+	 return count;
 }
