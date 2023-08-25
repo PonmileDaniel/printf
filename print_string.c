@@ -10,8 +10,14 @@
 
 int print_string(char *str)
 {
-	int string_no = 0;
+	int count = 0;
 
-	string_no = putsss((char *)str);
-	return (string_no);
+	while (*str != '\0')
+	{
+		_putchar(*str);
+		str++;
+		count++;
+	}
+
+	return (count);
 }
