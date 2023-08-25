@@ -13,57 +13,40 @@ int _printf(const char *format, ...)
 {
 	unsigned int count = 0;
 	unsigned int i = 0;
-	char current_char;
+	unsigned int string_no;
+	const char *str;
 
 	va_list args;
 
 	va_start(args, format);
 
-	enum State
-	{
-		STATE_NORMAL,
-		STATE_PERCENT,
-	};
-
-	enum State state = STATE_NORMAL;
-
 	for (i = 0; format[i] != '\0'; i++)
 	{
-		char current_char = format[i];
-
-		switch (state)
+		if (format[i] != '%')
 		{
-			case STATE_NORMAL:
-				if (current_char != '%')
-				{
-					_putchar(current_char);
-					count++;
-				}
-				else
-				{
-					state = STATE_PERCENT;
-				}
-				break;
-
-			case  STATE_PERCENT:
-				if (current_char == 'c')
-				{
-					_putchar(va_arg(args, int));
-				}
-				else if (current_char == 's')
-				{
-					const char *str = va_arg(args, const char *);
-
-					count += putsss(str);
-				}
-				else
-				{
-					_putchar('%');
-					_putchar(current_char);
-				}
-
-				state = STATE_NORMAL;
-				break;
+			_putchar(format[i]);
 		}
+		else
+		{
+			i++;
+			if (format[i] == 'c')
+			{
+				_putchar(va_arg(args, int));
+			}
+			else if (format[i] == 's')
+			{
+				str = va_arg(args, const char *);
+				string_no = putsss((char *)str);
+				count += string_no;
+				i++;
+			}
+			else if (format[i] == '%')
+			{
+				_putchar('%');
+			}
+		}
+		count++;
 	}
+	va_end(args);
+	return (count);
 }
