@@ -35,7 +35,7 @@ int _printf(const char *format, ...)
 		{
 			str = va_arg(args, const char *);
 			string_no = putsss((char *)str);
-			count += string_no;
+			count += (string_no - 1);
 			i++;
 		}
 		else if (format[i] == '%')
