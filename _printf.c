@@ -26,25 +26,23 @@ int _printf(const char *format, ...)
 		{
 			_putchar(format[i]);
 		}
-		else
+		else if (format[i + 1] == 'c')
 		{
+			_putchar(va_arg(args, int));
 			i++;
-			if (format[i] == 'c')
-			{
-				_putchar(va_arg(args, int));
-			}
-			else if (format[i] == 's')
-			{
-				str = va_arg(args, const char *);
-				string_no = putsss((char *)str);
-				count += string_no;
-				i++;
-			}
-			else if (format[i] == '%')
-			{
-				_putchar('%');
-			}
 		}
+		else if (format[i + 1] == 's')
+		{
+			str = va_arg(args, const char *);
+			string_no = putsss((char *)str);
+			count += string_no;
+			i++;
+		}
+		else if (format[i] == '%')
+		{
+			_putchar('%');
+		}
+
 		count++;
 	}
 	va_end(args);
