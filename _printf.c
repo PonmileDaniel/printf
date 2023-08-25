@@ -23,17 +23,17 @@ for (i = 0; format[i] != '\0'; i++)
 	{
 		if (format[i] != '%')
 			_putchar(format[i]);
-		if (format[i] == '%' && format[i + 1] == 'c')
+		else if (format[i] == '%' && format[i + 1] == 'c')
 		{
 			_putchar(va_arg(args, int));
 			i += 2;
 		}
-		if (format[i] == '%' && format[i + 1] == 's')
+		else if (format[i] == '%' && format[i + 1] == 's')
 		{
 			count += (print_string((char *)va_arg(args, char *)) - 1);
 			i += 2;
 		}
-		if (format[i] == '%' && format[i + 1] == '%')
+		else if (format[i] == '%' && format[i + 1] == '%')
 			_putchar('%');
 		count++;
 	}

@@ -21,6 +21,7 @@ int _printf(const char *format, ...);
 int _putchar(char c);
 int putsss(char *c);
 int print_string(char *);
+int print_string(char *str);
 int custom_printf_string(va_list args);
 int custom_print_formatted(const char *format, ...);
 

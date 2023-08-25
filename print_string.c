@@ -5,19 +5,18 @@
 /**
  * print_string- printing string tool
  * @str: pointer to string in args
- * Return: int
+ * Return: Int
  */
 
 int print_string(char *str)
 {
-	int count = 0;
+	unsigned int i = 0;
 
-	while (*str != '\0')
+	while (str != '\0')
 	{
-		_putchar(*str);
+		_putchar(str);
 		str++;
-		count++;
+		i++;
+		return (i++);
 	}
-
-	return (count);
 }
