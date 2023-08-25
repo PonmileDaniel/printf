@@ -1,9 +1,9 @@
 #include "main.h"
 
 /**
- * putsss - String
- * @c : string
- * Return : number of byte
+ * putsss - Prints strings with byte number
+ * @c: string
+ * Return: int
  */
 int putsss(char *c)
 {

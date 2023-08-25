@@ -33,7 +33,7 @@ int _printf(const char *format, ...)
 		}
 		else if (format[i + 1] == 's')
 		{
-			str = va_arg(args, const char *);
+			str = va_arg(args, char *);
 			string_no = putsss((char *)str);
 			count += (string_no - 1);
 			i++;
@@ -42,7 +42,6 @@ int _printf(const char *format, ...)
 		{
 			_putchar('%');
 		}
-
 		count++;
 	}
 	va_end(args);
