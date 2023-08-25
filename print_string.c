@@ -11,6 +11,7 @@
 int print_string(char *str)
 {
 	int string_no = 0;
+
 	string_no = putsss((char *)str);
 	return (string_no);
- }
+}
