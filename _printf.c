@@ -22,23 +22,16 @@ int _printf(const char *format, ...)
 	for (i = 0; format[i] != '\0'; i++)
 	{
 		if (format[i] != '%')
-		{
 			_putchar(format[i]);
-		}
-		else if (format[i + 1] == 'c')
+		if (format[i] == '%' && format[i + 1] == 'c')
 		{
 			_putchar(va_arg(args, int));
 			i++;
 		}
-		else if (format[i + 1] == 's')
-		{
-			strings_no = print_string(va_arg(args, char *));
-			count += (strings_no - 1);
-		}
-		else if (format[i + 1] == '%')
-		{
+		if (format[i] == '%' && format[i + 1] == 's')
+			count += (print_string(va_arg(args, char *)) - 1);
+		if (format[i + 1] == '%')
 			_putchar('%');
-		}
 		count++;
 	}
 	va_end(args);
