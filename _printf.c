@@ -13,8 +13,7 @@ int _printf(const char *format, ...)
 {
 	unsigned int count = 0;
 	unsigned int i = 0;
-	unsigned int strings_no;
-	const char *str;
+
 	va_list args;
 
 	va_start(args, format);
@@ -30,7 +29,7 @@ for (i = 0; format[i] != '\0'; i++)
 		}
 		if (format[i] == '%' && format[i + 1] == 's')
 		{
-			count += (print_string((char *)va_arg(args, char *)) - 1);
+			count += putsss(va_arg(args, char *)) - 1;
 			i += 2;
 		}
 		if (format[i] == '%' && format[i + 1] == '%')
